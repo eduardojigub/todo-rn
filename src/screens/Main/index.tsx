@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import { styles } from './styles';
+import Header from '@/components/Header';
 
 export default function Main() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Main Screen</Text>
+    <View style={styles.mainContainer}>
+      <Header />
     </View>
   );
 }
