@@ -29,5 +29,6 @@ export const styles = StyleSheet.create({
     },
     checkbox: {
         borderRadius: 10,
-    }
+        borderColor: '#4EA8DE',
+    },
 });
