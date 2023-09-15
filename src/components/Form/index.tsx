@@ -13,8 +13,6 @@ export default function Form() {
   const [borderColor, setBorderColor] = useState('#0D0D0D');
 
   const handleAddTask = () => {
-    console.log('handleAddTask called');
-    console.log('taskText:', taskText);
     addTask(); // Call the addTask function from the context
   };
 
