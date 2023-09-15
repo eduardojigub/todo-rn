@@ -8,17 +8,16 @@ export default function TasksController() {
         <View style={styles.counterCointaner}>
           <Text style={styles.createdTasksText}>Created</Text>
           <View style={styles.counterBackground}>
-            <Text style={styles.counter}>1</Text>
+            <Text style={styles.counter}>0</Text>
           </View>
         </View>
         <View style={styles.counterCointaner}>
           <Text style={styles.doneTasksText}>Done</Text>
           <View style={styles.counterBackground}>
-            <Text style={styles.counter}>10</Text>
+            <Text style={styles.counter}>0</Text>
           </View>
         </View>
       </View>
-      <View style={styles.line} />
     </>
   );
 }

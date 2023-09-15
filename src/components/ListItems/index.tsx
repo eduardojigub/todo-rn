@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Text } from 'react-native';
 import { useTask } from '../../context/TaskContext';
 import EmptyList from '../EmptyList';
+import { TextItem } from '../Item';
 
 function ListItem() {
   const { taskList } = useTask(); // Access taskList from the context
@@ -9,9 +10,10 @@ function ListItem() {
   return (
     <FlatList
       data={taskList}
-      renderItem={({ item }) => <Text>{item}</Text>}
+      renderItem={({ item }) => <TextItem text={item} />}
       keyExtractor={(item, index) => index.toString()}
       ListEmptyComponent={() => <EmptyList />}
+      showsVerticalScrollIndicator={false}
     />
   );
 }
