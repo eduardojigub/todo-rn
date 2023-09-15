@@ -26,7 +26,11 @@ function ListItem() {
       <FlatList
         data={taskList}
         renderItem={({ item }) => (
-          <TextItem text={item} onRemove={() => handleRemoveTask(item)} />
+          <TextItem
+            text={item}
+            onRemove={() => handleRemoveTask(item)}
+            index={item}
+          />
         )}
         keyExtractor={(item, index) => index.toString()}
         ListEmptyComponent={() => <EmptyList />}

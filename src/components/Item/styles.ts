@@ -22,5 +22,12 @@ export const styles = StyleSheet.create({
     button: {
         marginRight: 4,
         marginLeft: 8,
+    },
+    completedText: {
+        textDecorationLine: 'line-through',
+        color: '#888',
+    },
+    checkbox: {
+        borderRadius: 10,
     }
 });

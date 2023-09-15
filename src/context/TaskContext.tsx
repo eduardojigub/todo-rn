@@ -1,30 +1,33 @@
-// TaskContext.js
 import React, { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
 
 const TaskContext = createContext<{
   taskList: any[];
   setTaskList: React.Dispatch<React.SetStateAction<any[]>>;
-  taskText: string; // Include taskText in the type definition
-  setTaskText: React.Dispatch<React.SetStateAction<string>>; // Include setTaskText
-  removeTask: (taskName: string) => void; // Include removeTask function
-  addTask: () => void; // Include addTask function
+  taskText: string;
+  setTaskText: React.Dispatch<React.SetStateAction<string>>;
+  removeTask: (taskName: string) => void;
+  addTask: () => void;
+  checkedTasks: Set<number>; // Include checkedTasks state
+  toggleTaskStatus: (index: number) => void; // Include toggleTaskStatus function
 }>({
   taskList: [],
   setTaskList: () => {},
-  taskText: '', // Initialize taskText in the default context value
-  setTaskText: () => {}, // Initialize setTaskText in the default context value
-  removeTask: () => {}, // Initialize removeTask in the default context value
-  addTask: () => {}, // Initialize addTask in the default context value
+  taskText: '',
+  setTaskText: () => {},
+  removeTask: () => {},
+  addTask: () => {},
+  checkedTasks: new Set(),
+  toggleTaskStatus: () => {},
 });
 
 export function TaskProvider({ children }: { children: React.ReactNode }) {
   const [taskList, setTaskList] = useState<any[]>([]);
-  const [taskText, setTaskText] = useState(''); // Add taskText state
+  const [taskText, setTaskText] = useState('');
+  const [checkedTasks, setCheckedTasks] = useState<Set<number>>(new Set());
 
   const addTask = () => {
     if (taskText.trim() !== '') {
-      // Check for duplicate task
       if (taskList.some((task) => task === taskText)) {
         Alert.alert(
           'Task Already Exists',
@@ -32,12 +35,29 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         );
       } else {
         setTaskList([...taskList, taskText]);
-        setTaskText(''); // Clear the input field
+        setTaskText('');
       }
     }
   };
+
   const removeTask = (taskName: string) => {
     setTaskList((prevState) => prevState.filter((task) => task !== taskName));
+    const taskIndex = taskList.findIndex((task) => task === taskName);
+    if (taskIndex !== -1) {
+      const newCheckedTasks = new Set(checkedTasks);
+      newCheckedTasks.delete(taskIndex);
+      setCheckedTasks(newCheckedTasks);
+    }
+  };
+
+  const toggleTaskStatus = (index: number) => {
+    const newCheckedTasks = new Set(checkedTasks);
+    if (newCheckedTasks.has(index)) {
+      newCheckedTasks.delete(index);
+    } else {
+      newCheckedTasks.add(index);
+    }
+    setCheckedTasks(newCheckedTasks);
   };
 
   return (
@@ -49,6 +69,8 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         setTaskText,
         addTask,
         removeTask,
+        checkedTasks,
+        toggleTaskStatus,
       }}
     >
       {children}
