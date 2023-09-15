@@ -12,11 +12,11 @@ function ListItem() {
       'Remove task',
       `Do you really want to delete task ${taskName}?`,
       [
+        { text: 'No', style: 'cancel' },
         {
           text: 'Yes',
           onPress: () => removeTask(taskName),
         },
-        { text: 'No', style: 'cancel' },
       ]
     );
   };
