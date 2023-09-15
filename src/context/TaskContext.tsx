@@ -29,7 +29,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const addTask = () => {
     if (taskText.trim() !== '') {
       const newTask = { id: Date.now(), text: taskText };
-      if (taskList.some((task) => task.id === task.id)) {
+      if (taskList.some((task) => task.text === taskText)) {
         Alert.alert(
           'Task Already Exists',
           'There is already a task with this text.'
