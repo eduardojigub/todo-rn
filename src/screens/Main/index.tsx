@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { styles } from './styles';
 import Header from '@/components/Header';
 import Form from '@/components/Form';
 import TasksController from '@/components/TasksController';
 import EmptyList from '@/components/EmptyList';
+import ListItem from '@/components/ListItems';
 
 export default function Main() {
   return (
@@ -11,7 +12,7 @@ export default function Main() {
       <Header />
       <Form />
       <TasksController />
-      <EmptyList />
+      <ListItem />
     </View>
   );
 }
