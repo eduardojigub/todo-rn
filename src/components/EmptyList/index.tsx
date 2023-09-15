@@ -6,7 +6,7 @@ import { styles } from './styles';
 export default function EmptyList() {
   return (
     <View style={styles.container}>
-      <Clipboard />
+      <Clipboard width={72} height={72} />
       <View style={{ marginTop: 16 }}>
         <Text style={styles.descriptionBold}>
           You don't have any tasks registered yet
