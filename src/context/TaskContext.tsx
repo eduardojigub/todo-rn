@@ -6,7 +6,7 @@ const TaskContext = createContext<{
   setTaskList: React.Dispatch<React.SetStateAction<any[]>>;
   taskText: string;
   setTaskText: React.Dispatch<React.SetStateAction<string>>;
-  removeTask: (taskName: string) => void;
+  removeTask: (taskId: number) => void;
   addTask: () => void;
   checkedTasks: Set<number>; // Include checkedTasks state
   toggleTaskStatus: (index: number) => void; // Include toggleTaskStatus function
@@ -28,36 +28,38 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
 
   const addTask = () => {
     if (taskText.trim() !== '') {
-      if (taskList.some((task) => task === taskText)) {
+      const newTask = { id: Date.now(), text: taskText };
+      if (taskList.some((task) => task.id === task.id)) {
         Alert.alert(
           'Task Already Exists',
           'There is already a task with this text.'
         );
       } else {
-        setTaskList([...taskList, taskText]);
+        setTaskList([...taskList, newTask]);
         setTaskText('');
       }
     }
   };
 
-  const removeTask = (taskName: string) => {
-    setTaskList((prevState) => prevState.filter((task) => task !== taskName));
-    const taskIndex = taskList.findIndex((task) => task === taskName);
-    if (taskIndex !== -1) {
-      const newCheckedTasks = new Set(checkedTasks);
-      newCheckedTasks.delete(taskIndex);
-      setCheckedTasks(newCheckedTasks);
-    }
+  const removeTask = (taskId: number) => {
+    setTaskList((prevState) => prevState.filter((task) => task.id !== taskId));
+    setCheckedTasks((prevCheckedTasks) => {
+      const newCheckedTasks = new Set(prevCheckedTasks);
+      newCheckedTasks.delete(taskId);
+      return newCheckedTasks;
+    });
   };
 
-  const toggleTaskStatus = (index: number) => {
-    const newCheckedTasks = new Set(checkedTasks);
-    if (newCheckedTasks.has(index)) {
-      newCheckedTasks.delete(index);
-    } else {
-      newCheckedTasks.add(index);
-    }
-    setCheckedTasks(newCheckedTasks);
+  const toggleTaskStatus = (taskId: number) => {
+    setCheckedTasks((prevCheckedTasks) => {
+      const newCheckedTasks = new Set(prevCheckedTasks);
+      if (newCheckedTasks.has(taskId)) {
+        newCheckedTasks.delete(taskId);
+      } else {
+        newCheckedTasks.add(taskId);
+      }
+      return newCheckedTasks;
+    });
   };
 
   return (

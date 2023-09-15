@@ -7,18 +7,14 @@ import { styles } from './styles';
 function ListItem() {
   const { taskList, removeTask } = useTask(); // Access taskList from the context
 
-  const handleRemoveTask = (taskName: string) => {
-    Alert.alert(
-      'Remove task',
-      `Do you really want to delete task ${taskName}?`,
-      [
-        { text: 'No', style: 'cancel' },
-        {
-          text: 'Yes',
-          onPress: () => removeTask(taskName),
-        },
-      ]
-    );
+  const handleRemoveTask = (taskId: number) => {
+    Alert.alert('Remove task', `Do you really want to delete this task?`, [
+      { text: 'No', style: 'cancel' },
+      {
+        text: 'Yes',
+        onPress: () => removeTask(taskId),
+      },
+    ]);
   };
 
   return (
@@ -27,9 +23,9 @@ function ListItem() {
         data={taskList}
         renderItem={({ item }) => (
           <TextItem
-            text={item}
-            onRemove={() => handleRemoveTask(item)}
-            index={item}
+            text={item.text}
+            onRemove={() => handleRemoveTask(item.id)}
+            index={item.id}
           />
         )}
         keyExtractor={(item, index) => index.toString()}
