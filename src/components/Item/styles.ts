@@ -4,14 +4,14 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '90%',
-        height: 64,
         backgroundColor: '#262626',
         borderRadius: 10,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'center', 
         marginBottom: 8,
         padding: 12,
         marginLeft: 20,
+        minHeight: 64,
     },
     text: {
         color: '#FFF',
@@ -19,4 +19,8 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         marginLeft: 16,
     },
+    button: {
+        marginRight: 4,
+        marginLeft: 8,
+    }
 });
